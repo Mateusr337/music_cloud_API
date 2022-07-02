@@ -1,7 +1,8 @@
-import { AuthProviders } from '../entities/user.entity';
+import { AuthProviders, User } from '@prisma/client';
 
-export class SignUpDto {
+export class UserDto implements User {
   constructor(
+    public id: number,
     public name: string,
     public email: string,
     public password: string,
