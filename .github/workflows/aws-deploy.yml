@@ -42,18 +42,6 @@ jobs:
       - name: Integration Test
         run: docker-compose run musicloud-api npm run ci:e2e:test
 
-  run_migrations:
-    needs: [integration_test]
-    runs-on: ubuntu-latest
-    env:
-      DATABASE_URL: postgresql://postgres:fDAaTfFRQPj3vTu7d3@musicloud-postgres-database.crg8aqzznzci.us-east-1.rds.amazonaws.com:5432/musicloud?schema=public
-    steps:
-      - uses: actions/checkout@v2
-      - name: Install dependencies
-        run: npm i
-      - name: Run Migrations
-        run: npx prisma migrate deploy
-
   deploy:
     needs: [run_migrations]
     name: Deploy
