@@ -1,74 +1,162 @@
 {
-  "taskDefinitionArn": "arn:aws:ecs:us-east-1:150762500805:task-definition/musicloud_api_task_definition:1",
+  "ipcMode": null,
+  "executionRoleArn": "arn:aws:iam::150762500805:role/ecsTaskExecutionRole",
   "containerDefinitions": [
     {
-      "name": "musicloud-api",
-      "image": "150762500805.dkr.ecr.us-east-1.amazonaws.com/musicloud-api",
-      "cpu": 0,
-      "links": [],
+      "dnsSearchDomains": null,
+      "environmentFiles": null,
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "secretOptions": null,
+        "options": {
+          "awslogs-group": "/ecs/musicloud-api-fargate-task-definition",
+          "awslogs-region": "us-east-1",
+          "awslogs-stream-prefix": "ecs"
+        }
+      },
+      "entryPoint": null,
       "portMappings": [
         {
-          "containerPort": 3000,
-          "hostPort": 0,
-          "protocol": "tcp"
+          "hostPort": 5000,
+          "protocol": "tcp",
+          "containerPort": 5000
         }
       ],
-      "essential": true,
-      "entryPoint": [],
-      "command": [],
+      "command": null,
+      "linuxParameters": null,
+      "cpu": 0,
       "environment": [],
-      "environmentFiles": [],
+      "resourceRequirements": null,
+      "ulimits": null,
+      "dnsServers": null,
       "mountPoints": [],
+      "workingDirectory": null,
+      "secrets": [
+        {
+          "valueFrom": "musicloud-api-POSTGRES_DB",
+          "name": "POSTGRES_DB"
+        },
+        {
+          "valueFrom": "musicloud-api-POSTGRES_HOST",
+          "name": "POSTGRES_HOST"
+        },
+        {
+          "valueFrom": "musicloud-api-POSTGRES_PASSWORD",
+          "name": "POSTGRES_PASSWORD"
+        },
+        {
+          "valueFrom": "musicloud-api-POSTGRES_PORT",
+          "name": "POSTGRES_PORT"
+        },
+        {
+          "valueFrom": "musicloud-api-POSTGRES_USER",
+          "name": "POSTGRES_USER"
+        }
+      ],
+      "dockerSecurityOptions": null,
+      "memory": null,
+      "memoryReservation": 2048,
       "volumesFrom": [],
-      "secrets": [],
-      "dnsServers": [],
-      "dnsSearchDomains": [],
-      "extraHosts": [],
-      "dockerSecurityOptions": [],
-      "dockerLabels": {},
-      "ulimits": [],
-      "systemControls": []
-    }
-  ],
-  "family": "musicloud_api_task_definition",
-  "executionRoleArn": "arn:aws:iam::150762500805:role/ecsTaskExecutionRole",
-  "networkMode": "bridge",
-  "revision": 1,
-  "volumes": [],
-  "status": "ACTIVE",
-  "requiresAttributes": [
-    {
-      "name": "com.amazonaws.ecs.capability.ecr-auth"
-    },
-    {
-      "name": "com.amazonaws.ecs.capability.docker-remote-api.1.17"
-    },
-    {
-      "name": "ecs.capability.execution-role-ecr-pull"
-    },
-    {
-      "name": "com.amazonaws.ecs.capability.docker-remote-api.1.18"
+      "stopTimeout": null,
+      "image": "150762500805.dkr.ecr.us-east-1.amazonaws.com/musicloud-api:d006a547ef9d5ba626a4dea31d0089990f2c3996",
+      "startTimeout": null,
+      "firelensConfiguration": null,
+      "dependsOn": null,
+      "disableNetworking": null,
+      "interactive": null,
+      "healthCheck": null,
+      "essential": true,
+      "links": null,
+      "hostname": null,
+      "extraHosts": null,
+      "pseudoTerminal": null,
+      "user": null,
+      "readonlyRootFilesystem": null,
+      "dockerLabels": null,
+      "systemControls": null,
+      "privileged": null,
+      "name": "musicloud-api-container"
     }
   ],
   "placementConstraints": [],
-  "compatibilities": ["EXTERNAL", "EC2"],
-  "runtimePlatform": {
-    "cpuArchitecture": "X86_64",
-    "operatingSystemFamily": "LINUX"
-  },
-  "requiresCompatibilities": ["EC2"],
-  "cpu": "1024",
-  "memory": "3072",
-  "registeredAt": "2022-07-03T11:25:52.345Z",
-  "registeredBy": "arn:aws:iam::150762500805:user/t4-dina-of-the-deep",
-  "tags": [
+  "memory": "2048",
+  "taskRoleArn": "arn:aws:iam::150762500805:role/escTaskRole",
+  "compatibilities": ["EC2", "FARGATE"],
+  "taskDefinitionArn": "arn:aws:ecs:us-east-1:150762500805:task-definition/musicloud-api-fargate-task-definition:3",
+  "family": "musicloud-api-fargate-task-definition",
+  "requiresAttributes": [
     {
-      "key": "ecs:taskDefinition:createdFrom",
-      "value": "ecs-console-v2"
+      "targetId": null,
+      "targetType": null,
+      "value": null,
+      "name": "com.amazonaws.ecs.capability.logging-driver.awslogs"
     },
     {
-      "key": "ecs:taskDefinition:stackId",
-      "value": "arn:aws:cloudformation:us-east-1:150762500805:stack/ECS-Console-V2-TaskDefinition-8ba2befd-7af6-4814-a5d9-3ad4bc9344a7/e2141890-fac2-11ec-9093-12c31849f089"
+      "targetId": null,
+      "targetType": null,
+      "value": null,
+      "name": "ecs.capability.execution-role-awslogs"
+    },
+    {
+      "targetId": null,
+      "targetType": null,
+      "value": null,
+      "name": "com.amazonaws.ecs.capability.ecr-auth"
+    },
+    {
+      "targetId": null,
+      "targetType": null,
+      "value": null,
+      "name": "com.amazonaws.ecs.capability.docker-remote-api.1.19"
+    },
+    {
+      "targetId": null,
+      "targetType": null,
+      "value": null,
+      "name": "com.amazonaws.ecs.capability.docker-remote-api.1.21"
+    },
+    {
+      "targetId": null,
+      "targetType": null,
+      "value": null,
+      "name": "com.amazonaws.ecs.capability.task-iam-role"
+    },
+    {
+      "targetId": null,
+      "targetType": null,
+      "value": null,
+      "name": "ecs.capability.execution-role-ecr-pull"
+    },
+    {
+      "targetId": null,
+      "targetType": null,
+      "value": null,
+      "name": "ecs.capability.secrets.ssm.environment-variables"
+    },
+    {
+      "targetId": null,
+      "targetType": null,
+      "value": null,
+      "name": "com.amazonaws.ecs.capability.docker-remote-api.1.18"
+    },
+    {
+      "targetId": null,
+      "targetType": null,
+      "value": null,
+      "name": "ecs.capability.task-eni"
     }
-  ]
+  ],
+  "pidMode": null,
+  "requiresCompatibilities": ["FARGATE"],
+  "networkMode": "awsvpc",
+  "runtimePlatform": {
+    "operatingSystemFamily": "LINUX",
+    "cpuArchitecture": null
+  },
+  "cpu": "1024",
+  "revision": 3,
+  "status": "ACTIVE",
+  "inferenceAccelerators": null,
+  "proxyConfiguration": null,
+  "volumes": []
 }

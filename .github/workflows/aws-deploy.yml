@@ -8,9 +8,9 @@ on:
 env:
   ECR_REPOSITORY: musicloud-api
   ECS_SERVICE: musicloud-api-service
-  ECS_CLUSTER: musicloud_api_cluster
+  ECS_CLUSTER: musicloud-api-clusterUpdate
   ECS_TASK_DEFINITION: ./task-definition.json
-  CONTAINER_NAME: musicloud-api
+  CONTAINER_NAME: musicloud-api-container
 
 jobs:
   test:
@@ -42,8 +42,26 @@ jobs:
       - name: Integration Test
         run: docker-compose run musicloud-api npm run ci:e2e:test
 
-  deploy:
+  run_migrations:
     needs: [integration_test]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Make envfile
+        uses: SpicyPizza/create-envfile@v1
+        with:
+          envkey_POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
+          envkey_POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+          envkey_POSTGRES_DB: ${{ secrets.POSTGRES_DB }}
+          envkey_POSTGRES_HOST: ${{ secrets.POSTGRES_HOST }}
+          envkey_POSTGRES_PORT: ${{ secrets.POSTGRES_PORT }}
+          envkey_PORT: 3000
+          file_name: .env
+      - name: Run Migrations
+        run: npm run docker:migrate:prod
+
+  deploy:
+    needs: [run_migrations]
     name: Deploy
     runs-on: ubuntu-latest
 
