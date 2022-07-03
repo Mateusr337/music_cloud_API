@@ -8,7 +8,7 @@ on:
 env:
   ECR_REPOSITORY: musicloud-api
   ECS_SERVICE: musicloud-api-service
-  ECS_CLUSTER: musicloud-api-clusterUpdate
+  ECS_CLUSTER: musicloud-api-cluster
   ECS_TASK_DEFINITION: ./task-definition.json
   CONTAINER_NAME: musicloud-api-container
 
