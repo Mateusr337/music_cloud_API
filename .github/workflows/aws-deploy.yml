@@ -40,7 +40,7 @@ jobs:
       - name: Run Migrations
         run: npm run docker:migrate
       - name: Integration Test
-        run: docker-compose run musicloud-api npm run test:e2e
+        run: docker-compose run musicloud-api npm run ci:e2e:test
 
   deploy:
     needs: [integration_test]
