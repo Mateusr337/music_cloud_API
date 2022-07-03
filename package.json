@@ -20,7 +20,8 @@
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "dotenv -e .env.test jest --config ./test/jest-e2e.json",
     "prisma:generate": "npx prisma generate",
-    "docker:migrate": "docker-compose run musicloud-api npx prisma migrate deploy"
+    "docker:migrate": "docker-compose run musicloud-api npx prisma migrate deploy",
+    "ci:e2e:test": "dotenv -e .env jest --config ./test/jest-e2e.json"
   },
   "dependencies": {
     "@nestjs/common": "^8.0.0",
