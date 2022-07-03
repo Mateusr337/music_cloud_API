@@ -20,7 +20,7 @@ COPY --chown=node:node . .
 
 # Generate Prisma database client code
 RUN npm run prisma:generate
-RUN chown -R node_modules/@prisma node:node
+RUN chown -R node:node node_modules/@prisma
 
 # Use the node user from the image (instead of the root user)
 USER node
