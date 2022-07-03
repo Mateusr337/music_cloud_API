@@ -1,0 +1,74 @@
+{
+  "taskDefinitionArn": "arn:aws:ecs:us-east-1:150762500805:task-definition/musicloud_api_task_definition:1",
+  "containerDefinitions": [
+    {
+      "name": "musicloud-api",
+      "image": "150762500805.dkr.ecr.us-east-1.amazonaws.com/musicloud-api",
+      "cpu": 0,
+      "links": [],
+      "portMappings": [
+        {
+          "containerPort": 3000,
+          "hostPort": 0,
+          "protocol": "tcp"
+        }
+      ],
+      "essential": true,
+      "entryPoint": [],
+      "command": [],
+      "environment": [],
+      "environmentFiles": [],
+      "mountPoints": [],
+      "volumesFrom": [],
+      "secrets": [],
+      "dnsServers": [],
+      "dnsSearchDomains": [],
+      "extraHosts": [],
+      "dockerSecurityOptions": [],
+      "dockerLabels": {},
+      "ulimits": [],
+      "systemControls": []
+    }
+  ],
+  "family": "musicloud_api_task_definition",
+  "executionRoleArn": "arn:aws:iam::150762500805:role/ecsTaskExecutionRole",
+  "networkMode": "bridge",
+  "revision": 1,
+  "volumes": [],
+  "status": "ACTIVE",
+  "requiresAttributes": [
+    {
+      "name": "com.amazonaws.ecs.capability.ecr-auth"
+    },
+    {
+      "name": "com.amazonaws.ecs.capability.docker-remote-api.1.17"
+    },
+    {
+      "name": "ecs.capability.execution-role-ecr-pull"
+    },
+    {
+      "name": "com.amazonaws.ecs.capability.docker-remote-api.1.18"
+    }
+  ],
+  "placementConstraints": [],
+  "compatibilities": ["EXTERNAL", "EC2"],
+  "runtimePlatform": {
+    "cpuArchitecture": "X86_64",
+    "operatingSystemFamily": "LINUX"
+  },
+  "requiresCompatibilities": ["EC2"],
+  "cpu": "1024",
+  "memory": "3072",
+  "registeredAt": "2022-07-03T11:25:52.345Z",
+  "registeredBy": "arn:aws:iam::150762500805:user/t4-dina-of-the-deep",
+  "tags": [
+    {
+      "key": "ecs:taskDefinition:createdFrom",
+      "value": "ecs-console-v2"
+    },
+    {
+      "key": "ecs:taskDefinition:stackId",
+      "value": "arn:aws:cloudformation:us-east-1:150762500805:stack/ECS-Console-V2-TaskDefinition-8ba2befd-7af6-4814-a5d9-3ad4bc9344a7/e2141890-fac2-11ec-9093-12c31849f089"
+    }
+  ]
+}

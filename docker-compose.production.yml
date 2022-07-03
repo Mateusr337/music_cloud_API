@@ -1,0 +1,42 @@
+version: '3.4'
+
+services:
+  musicloud-api-prod:
+    container_name: musicloud-api-prod
+    build:
+      dockerfile: Dockerfile
+      context: .
+      target: production
+    env_file:
+      - .env
+    environment:
+      DATABASE_URL: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@musicloud-sql-prod:${POSTGRES_PORT}/${POSTGRES_DB}?schema=public
+    command: npm run start:prod
+    ports:
+      - ${PORT}:${PORT}
+    depends_on:
+      - musicloud-sql
+    restart: always
+  musicloud-sql-prod:
+    container_name: musicloud-sql-prod
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    ports:
+      - '${POSTGRES_PORT}:${POSTGRES_PORT}'
+    volumes:
+      - musicloud-sql-prod-data:/var/lib/postgresql/data
+    command: postgres -p ${POSTGRES_PORT}
+  musicloud-nginx:
+    image: nginx
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - ./nginx:/etc/nginx/conf.d
+
+volumes:
+  musicloud-sql-prod-data:

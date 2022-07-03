@@ -1,30 +1,24 @@
 import { Injectable } from '@nestjs/common';
-import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
-import { IUsersRepository } from './iusers.repository';
+import { DomainError } from './../domain/domain-error';
+import { SignUpDto } from './dto/sign-up.dto';
+import { User } from './entities/user.entity';
+import { UsersRepository } from './repositories/users.repository';
 
 @Injectable()
 export class UsersService {
-  constructor(private readonly usersRepository: IUsersRepository) {}
+  constructor(private readonly usersRepository: UsersRepository) {}
 
-  create(createUserDto: CreateUserDto) {
-    this.usersRepository.create();
-    return 'This action adds a new user';
-  }
+  async signUp(signUpDto: SignUpDto) {
+    const { name, email, password, provider } = signUpDto;
 
-  findAll() {
-    return `This action returns all users`;
-  }
-
-  findOne(id: number) {
-    return `This action returns a #${id} user`;
-  }
-
-  update(id: number, updateUserDto: UpdateUserDto) {
-    return `This action updates a #${id} user`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} user`;
+    const user = new User(name, email, password, provider);
+    const existingUser = await this.usersRepository.findByEmail(email);
+    if (existingUser) {
+      throw new DomainError(
+        User.name,
+        'cannot create an user with this email, emails must be unique',
+      );
+    }
+    await this.usersRepository.create(user);
   }
 }
