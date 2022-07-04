@@ -34,7 +34,7 @@
       "memoryReservation": 500,
       "volumesFrom": [],
       "stopTimeout": null,
-      "image": "150762500805.dkr.ecr.us-east-1.amazonaws.com/musicloud-api",
+      "image": "150762500805.dkr.ecr.us-east-1.amazonaws.com/musicloud-api:96ab1d4ab5c3b46fe4b3c3bc00ffdb22512c9a6f",
       "startTimeout": null,
       "firelensConfiguration": null,
       "dependsOn": null,
@@ -58,7 +58,7 @@
   "memory": "2048",
   "taskRoleArn": "arn:aws:iam::150762500805:role/escTaskRole",
   "compatibilities": ["EXTERNAL", "EC2"],
-  "taskDefinitionArn": "arn:aws:ecs:us-east-1:150762500805:task-definition/musicloud-api-task-definition:1",
+  "taskDefinitionArn": "arn:aws:ecs:us-east-1:150762500805:task-definition/musicloud-api-task-definition:3",
   "family": "musicloud-api-task-definition",
   "requiresAttributes": [
     {
@@ -96,8 +96,8 @@
   "requiresCompatibilities": ["EC2"],
   "networkMode": null,
   "runtimePlatform": null,
-  "cpu": "2048",
-  "revision": 1,
+  "cpu": "3072",
+  "revision": 3,
   "status": "ACTIVE",
   "inferenceAccelerators": null,
   "proxyConfiguration": null,
