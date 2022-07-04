@@ -1,9 +1,9 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { DomainError } from './../domain/domain-error';
-import { SignUpDto } from './dto/sign-up.dto';
-import { AuthProviders } from './entities/user.entity';
-import { UsersMemoryRepository } from './repositories/users-memory.repository';
-import { UsersRepository } from './repositories/users.repository';
+import { DomainError } from '../domain/domain-error';
+import { SignUpDto } from '../dto/sign-up.dto';
+import { AuthProviders, User } from '../entities/user.entity';
+import { UsersMemoryRepository } from '../repositories/users-memory.repository';
+import { UsersRepository } from '../repositories/users.repository';
 import { UsersService } from './users.service';
 
 describe('UsersService', () => {
@@ -45,10 +45,33 @@ describe('UsersService', () => {
       '12345678',
       AuthProviders.EMAIL,
     );
+    await database.create(
+      new User(
+        signUpData.name,
+        signUpData.email,
+        signUpData.password,
+        signUpData.provider,
+      ),
+    );
 
-    await database.create(signUpData);
     await expect(() => service.signUp(signUpData)).rejects.toBeInstanceOf(
       DomainError,
     );
+  });
+
+  it('should return an user given a existing email & provider pair (Email provider)', async () => {
+    const existingUser = new User(
+      'Fulano',
+      'fulano@email.com',
+      '12345678',
+      AuthProviders.EMAIL,
+    );
+    await database.create(existingUser);
+
+    const user = await service.findByEmail(existingUser.email);
+    expect(user.name).toEqual(existingUser.name);
+    expect(user.email).toEqual(existingUser.email);
+    expect(user.password).toEqual(existingUser.password);
+    expect(user.provider).toEqual(existingUser.provider);
   });
 });

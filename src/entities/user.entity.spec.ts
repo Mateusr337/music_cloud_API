@@ -1,4 +1,4 @@
-import { DomainError } from '../../domain/domain-error';
+import { DomainError } from '../domain/domain-error';
 import { AuthProviders, User } from './user.entity';
 
 describe('User', () => {
