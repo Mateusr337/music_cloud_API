@@ -1,8 +1,9 @@
 import { Injectable } from '@nestjs/common';
+import { SignUpDto } from '../dto/sign-up.dto';
+import { UserDto } from '../dto/user.dto';
+import { User } from '../entities/user.entity';
+import { UsersRepository } from '../repositories/users.repository';
 import { DomainError } from './../domain/domain-error';
-import { SignUpDto } from './dto/sign-up.dto';
-import { User } from './entities/user.entity';
-import { UsersRepository } from './repositories/users.repository';
 
 @Injectable()
 export class UsersService {
@@ -20,5 +21,11 @@ export class UsersService {
       );
     }
     await this.usersRepository.create(user);
+  }
+
+  async findByEmail(email: string): Promise<UserDto | null> {
+    const user = await this.usersRepository.findByEmail(email);
+
+    return user;
   }
 }

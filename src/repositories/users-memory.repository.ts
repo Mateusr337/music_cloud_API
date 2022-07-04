@@ -9,7 +9,7 @@ export class UsersMemoryRepository implements UsersRepository {
     this.users = [];
   }
 
-  async findByEmail(email: string) {
+  async findByEmail(email: string): Promise<UserDto | null> {
     return this.users.find((user) => user.email === email) ?? null;
   }
 
