@@ -35,6 +35,10 @@
         {
           "valueFrom": "musicloud-api-DATABASE_URL",
           "name": "DATABASE_URL"
+        },
+        {
+          "valueFrom": "musicloud-api-JWT_SECRET",
+          "name": "JWT_SECRET"
         }
       ],
       "dockerSecurityOptions": null,
@@ -123,7 +127,7 @@
   "networkMode": null,
   "runtimePlatform": null,
   "cpu": null,
-  "revision": 13,
+  "revision": 16,
   "status": "ACTIVE",
   "inferenceAccelerators": null,
   "proxyConfiguration": null,
