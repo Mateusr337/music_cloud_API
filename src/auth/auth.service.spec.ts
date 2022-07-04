@@ -1,6 +1,10 @@
+import { JwtModule } from '@nestjs/jwt';
 import { Test, TestingModule } from '@nestjs/testing';
+import { DomainError } from '../domain/domain-error';
 import { LoginDto } from '../dto/login.dto';
 import { AuthProviders, User } from '../entities/user.entity';
+import { HashMemoryProvider } from '../providers/hash/hash-memory.provider';
+import { HashProvider } from '../providers/hash/hash.provider';
 import { UsersMemoryRepository } from '../repositories/users-memory.repository';
 import { UsersRepository } from '../repositories/users.repository';
 import { UsersService } from '../users/users.service';
@@ -12,9 +16,16 @@ describe('UsersService', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
+      imports: [
+        JwtModule.register({
+          secret: 'JWT_SECRET',
+          signOptions: { expiresIn: '60s' },
+        }),
+      ],
       providers: [
         AuthService,
         UsersService,
+        { provide: HashProvider, useClass: HashMemoryProvider },
         { provide: UsersRepository, useClass: UsersMemoryRepository },
       ],
     }).compile();
@@ -42,18 +53,16 @@ describe('UsersService', () => {
       existingUser.password,
       existingUser.provider,
     );
-    const user = await service.login(loginDto);
+    const user = await service.validateUser(loginDto);
+    const { access_token } = await service.login(user);
 
-    expect(user.name).toEqual(existingUser.name);
-    expect(user.email).toEqual(existingUser.email);
-    expect(user.provider).toEqual(existingUser.provider);
-    expect(user.password).toBeUndefined();
+    expect(access_token).toBeDefined();
   });
 
-  it('should not login given invalid credentials', async () => {
-    const loginDto = new LoginDto('', '', AuthProviders.EMAIL);
-    const user = await service.login(loginDto);
-    expect(user).toBeNull();
+  it('should not login given invalid credentials', () => {
+    expect(() => new LoginDto('', '', AuthProviders.EMAIL)).toThrowError(
+      DomainError,
+    );
   });
 
   it('should not login given invalid provider', async () => {
@@ -70,7 +79,7 @@ describe('UsersService', () => {
       existingUser.provider,
     );
 
-    const user = await service.login(loginDto);
+    const user = await service.validateUser(loginDto);
     expect(user).toBeNull();
   });
 });
