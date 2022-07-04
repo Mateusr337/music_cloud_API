@@ -2,6 +2,8 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { DomainError } from '../domain/domain-error';
 import { SignUpDto } from '../dto/sign-up.dto';
 import { AuthProviders, User } from '../entities/user.entity';
+import { HashMemoryProvider } from '../providers/hash/hash-memory.provider';
+import { HashProvider } from '../providers/hash/hash.provider';
 import { UsersMemoryRepository } from '../repositories/users-memory.repository';
 import { UsersRepository } from '../repositories/users.repository';
 import { UsersService } from './users.service';
@@ -15,6 +17,7 @@ describe('UsersService', () => {
       providers: [
         UsersService,
         { provide: UsersRepository, useClass: UsersMemoryRepository },
+        { provide: HashProvider, useClass: HashMemoryProvider },
       ],
     }).compile();
 

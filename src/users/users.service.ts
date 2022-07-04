@@ -2,12 +2,16 @@ import { Injectable } from '@nestjs/common';
 import { SignUpDto } from '../dto/sign-up.dto';
 import { UserDto } from '../dto/user.dto';
 import { User } from '../entities/user.entity';
+import { HashProvider } from '../providers/hash/hash.provider';
 import { UsersRepository } from '../repositories/users.repository';
 import { DomainError } from './../domain/domain-error';
 
 @Injectable()
 export class UsersService {
-  constructor(private readonly usersRepository: UsersRepository) {}
+  constructor(
+    private readonly usersRepository: UsersRepository,
+    private readonly hashProvider: HashProvider,
+  ) {}
 
   async signUp(signUpDto: SignUpDto) {
     const { name, email, password, provider } = signUpDto;
@@ -20,6 +24,8 @@ export class UsersService {
         'cannot create an user with this email, emails must be unique',
       );
     }
+
+    user.password = await this.hashProvider.hash(user.password);
     await this.usersRepository.create(user);
   }
 

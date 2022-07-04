@@ -1,5 +1,6 @@
 import { HttpStatus, INestApplication } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
+import * as bcrypt from 'bcrypt';
 import * as request from 'supertest';
 import { AuthModule } from '../src/auth/auth.module';
 import { LoginDto } from '../src/dto/login.dto';
@@ -44,26 +45,31 @@ describe('E2E tests', () => {
     expect(createdUser).not.toEqual(null);
   });
 
-  it('should login given valid credentials', async () => {
+  it('should login and successfully use token given valid credentials', async () => {
+    const password = '12345678';
     const user = new User(
       'Fulano',
       'fulano@email.com',
-      '12345678',
+      bcrypt.hashSync(password, 12),
       AuthProviders.EMAIL,
     );
     const usersRepository = app.get<UsersRepository>(UsersRepository);
     await usersRepository.create(user);
 
-    const loginDto = new LoginDto(user.email, user.password, user.provider);
-    const response = await request(app.getHttpServer())
+    const loginDto = new LoginDto(user.email, password, user.provider);
+    const loginResponse = await request(app.getHttpServer())
       .post('/auth/login')
       .send(loginDto);
 
-    expect(response.status).toEqual(HttpStatus.CREATED);
-    expect(response.body.name).toEqual(user.name);
-    expect(response.body.email).toEqual(user.email);
-    expect(response.body.provider).toEqual(user.provider);
-    expect(response.body.password).toBeUndefined();
+    expect(loginResponse.status).toEqual(HttpStatus.CREATED);
+
+    const token = loginResponse.body.access_token;
+    const profileResponse = await request(app.getHttpServer())
+      .get('/users/profile')
+      .set('Authorization', `Bearer ${token}`);
+
+    expect(profileResponse.status).toEqual(HttpStatus.OK);
+    expect(profileResponse.body.email).toEqual(user.email);
   });
 
   afterAll(async () => {
