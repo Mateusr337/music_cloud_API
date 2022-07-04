@@ -5,19 +5,11 @@
     {
       "dnsSearchDomains": null,
       "environmentFiles": null,
-      "logConfiguration": {
-        "logDriver": "awslogs",
-        "secretOptions": null,
-        "options": {
-          "awslogs-group": "/ecs/musicloud-api-fargate-task-definition",
-          "awslogs-region": "us-east-1",
-          "awslogs-stream-prefix": "ecs"
-        }
-      },
+      "logConfiguration": null,
       "entryPoint": null,
       "portMappings": [
         {
-          "hostPort": 5000,
+          "hostPort": 0,
           "protocol": "tcp",
           "containerPort": 5000
         }
@@ -39,10 +31,10 @@
       ],
       "dockerSecurityOptions": null,
       "memory": null,
-      "memoryReservation": 2048,
+      "memoryReservation": 500,
       "volumesFrom": [],
       "stopTimeout": null,
-      "image": "150762500805.dkr.ecr.us-east-1.amazonaws.com/musicloud-api:59cbdc2460ecbd28932854268e5b71e040a84104",
+      "image": "150762500805.dkr.ecr.us-east-1.amazonaws.com/musicloud-api",
       "startTimeout": null,
       "firelensConfiguration": null,
       "dependsOn": null,
@@ -65,33 +57,15 @@
   "placementConstraints": [],
   "memory": "2048",
   "taskRoleArn": "arn:aws:iam::150762500805:role/escTaskRole",
-  "compatibilities": ["EC2", "FARGATE"],
-  "taskDefinitionArn": "arn:aws:ecs:us-east-1:150762500805:task-definition/musicloud-api-fargate-task-definition:7",
-  "family": "musicloud-api-fargate-task-definition",
+  "compatibilities": ["EXTERNAL", "EC2"],
+  "taskDefinitionArn": "arn:aws:ecs:us-east-1:150762500805:task-definition/musicloud-api-task-definition:1",
+  "family": "musicloud-api-task-definition",
   "requiresAttributes": [
     {
       "targetId": null,
       "targetType": null,
       "value": null,
-      "name": "com.amazonaws.ecs.capability.logging-driver.awslogs"
-    },
-    {
-      "targetId": null,
-      "targetType": null,
-      "value": null,
-      "name": "ecs.capability.execution-role-awslogs"
-    },
-    {
-      "targetId": null,
-      "targetType": null,
-      "value": null,
       "name": "com.amazonaws.ecs.capability.ecr-auth"
-    },
-    {
-      "targetId": null,
-      "targetType": null,
-      "value": null,
-      "name": "com.amazonaws.ecs.capability.docker-remote-api.1.19"
     },
     {
       "targetId": null,
@@ -116,29 +90,14 @@
       "targetType": null,
       "value": null,
       "name": "ecs.capability.secrets.ssm.environment-variables"
-    },
-    {
-      "targetId": null,
-      "targetType": null,
-      "value": null,
-      "name": "com.amazonaws.ecs.capability.docker-remote-api.1.18"
-    },
-    {
-      "targetId": null,
-      "targetType": null,
-      "value": null,
-      "name": "ecs.capability.task-eni"
     }
   ],
   "pidMode": null,
-  "requiresCompatibilities": ["FARGATE"],
-  "networkMode": "awsvpc",
-  "runtimePlatform": {
-    "operatingSystemFamily": "LINUX",
-    "cpuArchitecture": null
-  },
-  "cpu": "1024",
-  "revision": 7,
+  "requiresCompatibilities": ["EC2"],
+  "networkMode": null,
+  "runtimePlatform": null,
+  "cpu": "2048",
+  "revision": 1,
   "status": "ACTIVE",
   "inferenceAccelerators": null,
   "proxyConfiguration": null,
