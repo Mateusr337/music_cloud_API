@@ -36,6 +36,7 @@ jobs:
           envkey_POSTGRES_HOST: 'musicloud-sql'
           envkey_POSTGRES_PORT: 5433
           envkey_PORT: 3000
+          envkey_JWT_SECRET: 'secret'
           file_name: .env
       - name: Run Migrations
         run: npm run docker:migrate
