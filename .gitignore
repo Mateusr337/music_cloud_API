@@ -38,6 +38,6 @@ lerna-debug.log*
 
 tmp/*
 
-.env.test2
+.env.test
 
-task-definition2.json
+task-definition.json
