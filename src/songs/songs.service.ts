@@ -38,7 +38,7 @@ export class SongsService {
   }
 
   async get() {
-    const songs = await this.songsRepository.find();
+    const songs = await this.songsRepository.findAll();
     return songs;
   }
 }

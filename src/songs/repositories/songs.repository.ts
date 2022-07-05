@@ -4,5 +4,5 @@ import { Song } from '../../entities/song.entity';
 export abstract class SongsRepository {
   abstract create(song: Song, userId: number): Promise<number>;
   abstract findById(songId: number): Promise<SongDto>;
-  abstract find(): Promise<Array<Song>>;
+  abstract findAll(): Promise<Array<Song>>;
 }

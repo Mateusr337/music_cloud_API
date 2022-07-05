@@ -13,6 +13,10 @@ export class SongsMemoryRepository implements SongsRepository {
     return this.songs.find((song) => song.id === songId);
   }
 
+  async findAll(): Promise<Song[]> {
+    return this.songs;
+  }
+
   async create(song: Song, userId: number) {
     const id = Date.now();
 

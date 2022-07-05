@@ -32,8 +32,9 @@ export class SongsController {
     return this.songsService.upload(req.user.userId, fileDto);
   }
 
+  @UseInterceptors(FileInterceptor('song'))
   @UseGuards(JwtAuthGuard)
-  @Get('songs')
+  @Get()
   @HttpCode(HttpStatus.OK)
   async getMusics(@Request() req: AuthorizedRequest) {
     const songs = await this.songsService.get();
