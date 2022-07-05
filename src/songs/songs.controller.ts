@@ -30,23 +30,4 @@ export class SongsController {
 
     return this.songsService.upload(req.user.userId, fileDto);
   }
-
-  // @Get('stream/:id')
-  // getSong(
-  //   @Response({ passthrough: true }) res,
-  //   @Param('id') id: number,
-  // ): StreamableFile {
-  //   const fileName = '1657018975080-Death - Voice of the Soul.mp3';
-  //   const filePath = join(process.cwd(), 'tmp', fileName);
-
-  //   const file = createReadStream(filePath);
-
-  //   res.set({
-  //     'Content-Type': 'audio/mpeg',
-  //     'Accept-Ranges': 'bytes',
-  //     'Content-Disposition': `attachment; filename="${fileName}"`,
-  //   });
-
-  //   return new StreamableFile(file);
-  // }
 }
