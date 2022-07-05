@@ -12,17 +12,6 @@ export class SongsService {
     private readonly storageProvider: StorageProvider,
   ) {}
 
-  // async stream(userId: number, songId: number) {
-  //   const song = await this.songsRepository.findById(songId);
-  //   if (!song) {
-  //     throw new DomainError(Song.name, 'song not found', 'entity not found');
-  //   }
-
-  //   if (song.userId !== userId) {
-  //     throw new DomainError(Song.name, 'unauthorized', 'unauthorized');
-  //   }
-  // }
-
   async upload(userId: number, songFile: FileDto) {
     const { filename, mimetype, buffer } = songFile;
     const songTitle = filename.split('.').at(0);
