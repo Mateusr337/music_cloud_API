@@ -14,7 +14,17 @@ export class SongsDatabaseRepository implements SongsRepository {
         userId,
       },
     });
-    return data;
+    return data.map(
+      (song) =>
+        new SongDto(
+          song.id,
+          song.title,
+          song.artist,
+          song.album,
+          song.year,
+          song.userId,
+        ),
+    );
   }
 
   async findById(songId: number): Promise<SongDto | null> {
