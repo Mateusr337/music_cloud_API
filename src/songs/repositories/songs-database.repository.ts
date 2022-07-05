@@ -7,6 +7,9 @@ import { SongsRepository } from './songs.repository';
 @Injectable()
 export class SongsDatabaseRepository implements SongsRepository {
   constructor(private readonly connection: PrismaConnection) {}
+  find(): Promise<Song[]> {
+    throw new Error('Method not implemented.');
+  }
 
   async findById(songId: number): Promise<SongDto | null> {
     const data = await this.connection.song.findUnique({

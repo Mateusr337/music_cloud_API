@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { PrismaConnection } from '../infra/database/prisma-connection';
-import { S3StorageProvider } from '../providers/storage/s3-storage.provider';
+import { FsStorageProvider } from '../providers/storage/fs-storage.provider';
 import { StorageProvider } from '../providers/storage/storage.provider';
 import { SongsDatabaseRepository } from './repositories/songs-database.repository';
 import { SongsRepository } from './repositories/songs.repository';
@@ -13,7 +13,7 @@ import { SongsService } from './songs.service';
     SongsService,
     PrismaConnection,
     { provide: SongsRepository, useClass: SongsDatabaseRepository },
-    { provide: StorageProvider, useClass: S3StorageProvider },
+    { provide: StorageProvider, useClass: FsStorageProvider },
   ],
   exports: [SongsService],
 })

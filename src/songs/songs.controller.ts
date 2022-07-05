@@ -1,5 +1,6 @@
 import {
   Controller,
+  Get,
   HttpCode,
   HttpStatus,
   Post,
@@ -29,5 +30,13 @@ export class SongsController {
     const fileDto = new FileDto(file.originalname, file.mimetype, file.buffer);
 
     return this.songsService.upload(req.user.userId, fileDto);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Get('songs')
+  @HttpCode(HttpStatus.OK)
+  async getMusics(@Request() req: AuthorizedRequest) {
+    const songs = await this.songsService.get();
+    return songs;
   }
 }
