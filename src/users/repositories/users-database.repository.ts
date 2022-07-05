@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
-import { UserDto } from '../dto/user.dto';
-import { User } from '../entities/user.entity';
-import { PrismaConnection } from '../infra/database/prisma-connection';
+import { UserDto } from '../../dto/user.dto';
+import { User } from '../../entities/user.entity';
+import { PrismaConnection } from '../../infra/database/prisma-connection';
 import { UsersRepository } from './users.repository';
 
 @Injectable()

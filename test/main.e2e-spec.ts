@@ -8,7 +8,8 @@ import { SignUpDto } from '../src/dto/sign-up.dto';
 import { AuthProviders, User } from '../src/entities/user.entity';
 import { PrismaConnection } from '../src/infra/database/prisma-connection';
 import { DomainExceptionFilter } from '../src/infra/http/domain-exception.filter';
-import { UsersRepository } from '../src/repositories/users.repository';
+import { SongsModule } from '../src/songs/songs.module';
+import { UsersRepository } from '../src/users/repositories/users.repository';
 import { UsersModule } from '../src/users/users.module';
 
 describe('E2E tests', () => {
@@ -16,7 +17,7 @@ describe('E2E tests', () => {
 
   beforeEach(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
-      imports: [UsersModule, AuthModule],
+      imports: [UsersModule, AuthModule, SongsModule],
     }).compile();
 
     app = moduleFixture.createNestApplication();
@@ -24,6 +25,7 @@ describe('E2E tests', () => {
     await app.init();
 
     const prismaConnection = app.get<PrismaConnection>(PrismaConnection);
+    await prismaConnection.song.deleteMany({});
     await prismaConnection.user.deleteMany({});
   });
 

@@ -1,5 +1,5 @@
-import { UserDto } from '../dto/user.dto';
-import { User } from '../entities/user.entity';
+import { UserDto } from '../../dto/user.dto';
+import { User } from '../../entities/user.entity';
 import { UsersRepository } from './users.repository';
 
 export class UsersMemoryRepository implements UsersRepository {

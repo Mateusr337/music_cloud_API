@@ -18,6 +18,7 @@ export class AuthService {
     const { email, password, provider } = loginDto;
 
     const user = await this.usersService.findByEmail(email);
+    if (!user) return null;
 
     if (provider === AuthProviders.EMAIL) {
       const isPayloadComparable = await this.hashProvider.isPayloadComparable(
