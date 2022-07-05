@@ -1,4 +1,4 @@
-import { DomainError } from '../domain/domain-error';
+import { DomainError } from './domain-error';
 
 export class User {
   constructor(
@@ -22,7 +22,11 @@ export class User {
 
   private validateNameOrFail() {
     if (!this.name || typeof this.name !== 'string') {
-      throw new DomainError(User.name, 'name is required and must be a string');
+      throw new DomainError(
+        User.name,
+        'name is required and must be a string',
+        'invalid entity',
+      );
     }
   }
 
@@ -31,6 +35,7 @@ export class User {
       throw new DomainError(
         User.name,
         'email is required and must be a string',
+        'invalid entity',
       );
     }
   }
@@ -40,6 +45,7 @@ export class User {
       throw new DomainError(
         User.name,
         'password is required and must be a string when User was provided by email',
+        'invalid entity',
       );
     }
 
@@ -47,6 +53,7 @@ export class User {
       throw new DomainError(
         User.name,
         'password must have length greater than 7 when User was provided by email',
+        'invalid entity',
       );
     }
   }

@@ -1,12 +1,12 @@
 import { JwtModule } from '@nestjs/jwt';
 import { Test, TestingModule } from '@nestjs/testing';
-import { DomainError } from '../domain/domain-error';
 import { LoginDto } from '../dto/login.dto';
+import { DomainError } from '../entities/domain-error';
 import { AuthProviders, User } from '../entities/user.entity';
 import { HashMemoryProvider } from '../providers/hash/hash-memory.provider';
 import { HashProvider } from '../providers/hash/hash.provider';
-import { UsersMemoryRepository } from '../repositories/users-memory.repository';
-import { UsersRepository } from '../repositories/users.repository';
+import { UsersMemoryRepository } from '../users/repositories/users-memory.repository';
+import { UsersRepository } from '../users/repositories/users.repository';
 import { UsersService } from '../users/users.service';
 import { AuthService } from './auth.service';
 
@@ -63,6 +63,17 @@ describe('UsersService', () => {
     expect(() => new LoginDto('', '', AuthProviders.EMAIL)).toThrowError(
       DomainError,
     );
+  });
+
+  it('should not login given invalid credentials', async () => {
+    const loginDto = new LoginDto(
+      'invalid@email.com',
+      'invalid',
+      AuthProviders.EMAIL,
+    );
+    const user = await service.validateUser(loginDto);
+
+    expect(user).toBeNull();
   });
 
   it('should not login given invalid provider', async () => {

@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { SignUpDto } from '../dto/sign-up.dto';
 import { UserDto } from '../dto/user.dto';
+import { DomainError } from '../entities/domain-error';
 import { User } from '../entities/user.entity';
 import { HashProvider } from '../providers/hash/hash.provider';
-import { UsersRepository } from '../repositories/users.repository';
-import { DomainError } from './../domain/domain-error';
+import { UsersRepository } from './repositories/users.repository';
 
 @Injectable()
 export class UsersService {
@@ -22,6 +22,7 @@ export class UsersService {
       throw new DomainError(
         User.name,
         'cannot create an user with this email, emails must be unique',
+        'invalid operation',
       );
     }
 

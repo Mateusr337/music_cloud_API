@@ -1,11 +1,11 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { DomainError } from '../domain/domain-error';
 import { SignUpDto } from '../dto/sign-up.dto';
+import { DomainError } from '../entities/domain-error';
 import { AuthProviders, User } from '../entities/user.entity';
 import { HashMemoryProvider } from '../providers/hash/hash-memory.provider';
 import { HashProvider } from '../providers/hash/hash.provider';
-import { UsersMemoryRepository } from '../repositories/users-memory.repository';
-import { UsersRepository } from '../repositories/users.repository';
+import { UsersMemoryRepository } from './repositories/users-memory.repository';
+import { UsersRepository } from './repositories/users.repository';
 import { UsersService } from './users.service';
 
 describe('UsersService', () => {
@@ -38,7 +38,9 @@ describe('UsersService', () => {
       AuthProviders.EMAIL,
     );
 
-    return expect(() => service.signUp(signUpData)).resolves;
+    await service.signUp(signUpData);
+    const user = await database.findByEmail(signUpData.email);
+    expect(user).toBeDefined();
   });
 
   it('should no sign up an user with duplicate email', async () => {
