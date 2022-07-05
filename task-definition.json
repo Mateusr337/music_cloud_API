@@ -39,6 +39,18 @@
         {
           "valueFrom": "musicloud-api-JWT_SECRET",
           "name": "JWT_SECRET"
+        },
+        {
+          "valueFrom": "musicloud-api-S3_SONG_BUCKET_NAME",
+          "name": "S3_SONG_BUCKET_NAME"
+        },
+        {
+          "valueFrom": "musicloud-api-AWS_ACCESS_KEY_ID",
+          "name": "AWS_ACCESS_KEY_ID"
+        },
+        {
+          "valueFrom": "musicloud-api-AWS_SECRET_ACCESS_KEY",
+          "name": "AWS_SECRET_ACCESS_KEY"
         }
       ],
       "dockerSecurityOptions": null,
@@ -46,7 +58,7 @@
       "memoryReservation": 300,
       "volumesFrom": [],
       "stopTimeout": null,
-      "image": "150762500805.dkr.ecr.us-east-1.amazonaws.com/musicloud-api:109fde9a78ef419e50a2ee1f8eeecfde09f52573",
+      "image": "150762500805.dkr.ecr.us-east-1.amazonaws.com/musicloud-api:5d0ec611c9c523bd6bb6ca9ff571cb71b5fa8547",
       "startTimeout": null,
       "firelensConfiguration": null,
       "dependsOn": null,
@@ -70,7 +82,7 @@
   "memory": null,
   "taskRoleArn": "arn:aws:iam::150762500805:role/escTaskRole",
   "compatibilities": ["EXTERNAL", "EC2"],
-  "taskDefinitionArn": "arn:aws:ecs:us-east-1:150762500805:task-definition/musicloud-api-task-definition:13",
+  "taskDefinitionArn": "arn:aws:ecs:us-east-1:150762500805:task-definition/musicloud-api-task-definition:17",
   "family": "musicloud-api-task-definition",
   "requiresAttributes": [
     {
@@ -127,7 +139,7 @@
   "networkMode": null,
   "runtimePlatform": null,
   "cpu": null,
-  "revision": 16,
+  "revision": 17,
   "status": "ACTIVE",
   "inferenceAccelerators": null,
   "proxyConfiguration": null,
