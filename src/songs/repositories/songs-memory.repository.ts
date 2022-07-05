@@ -14,7 +14,19 @@ export class SongsMemoryRepository implements SongsRepository {
   }
 
   async findByUser(userId: number): Promise<SongDto[]> {
-    return this.songs.filter((song) => song.userId === userId);
+    return this.songs
+      .filter((song) => song.userId === userId)
+      .map(
+        (song) =>
+          new SongDto(
+            song.id,
+            song.title,
+            song.artist,
+            song.album,
+            song.year,
+            song.userId,
+          ),
+      );
   }
 
   async create(song: Song, userId: number) {

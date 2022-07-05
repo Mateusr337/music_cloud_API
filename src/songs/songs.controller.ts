@@ -32,7 +32,6 @@ export class SongsController {
     return this.songsService.upload(req.user.userId, fileDto);
   }
 
-  @UseInterceptors(FileInterceptor('song'))
   @UseGuards(JwtAuthGuard)
   @Get()
   @HttpCode(HttpStatus.OK)
