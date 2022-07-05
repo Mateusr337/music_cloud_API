@@ -7,8 +7,13 @@ import { SongsRepository } from './songs.repository';
 @Injectable()
 export class SongsDatabaseRepository implements SongsRepository {
   constructor(private readonly connection: PrismaConnection) {}
-  async findAll(): Promise<Song[]> {
-    const data = await this.connection.song.findMany();
+
+  async findByUser(userId: number): Promise<SongDto[]> {
+    const data = await this.connection.song.findMany({
+      where: {
+        userId,
+      },
+    });
     return data;
   }
 

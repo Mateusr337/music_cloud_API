@@ -37,8 +37,8 @@ export class SongsService {
     };
   }
 
-  async get() {
-    const songs = await this.songsRepository.findAll();
+  async getByUser(userId: number) {
+    const songs = await this.songsRepository.findByUser(userId);
     return songs;
   }
 }

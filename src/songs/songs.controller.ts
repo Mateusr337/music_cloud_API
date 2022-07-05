@@ -36,8 +36,8 @@ export class SongsController {
   @UseGuards(JwtAuthGuard)
   @Get()
   @HttpCode(HttpStatus.OK)
-  async getMusics(@Request() req: AuthorizedRequest) {
-    const songs = await this.songsService.get();
+  async getSongs(@Request() req: AuthorizedRequest) {
+    const songs = await this.songsService.getByUser(req.user.userId);
     return songs;
   }
 }
